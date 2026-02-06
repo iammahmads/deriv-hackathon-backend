@@ -1,0 +1,20 @@
+# Python environment and dependencies
+venv/
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# FastAPI / Uvicorn
+.python-version
+.fastapi/
+
+# Databases (Local SQLite/Migrations)
+*.db
+*.sqlite3
+alembic/versions/*.pyc
+
+
+# OS Specific
+.DS_Store
+Thumbs.db
