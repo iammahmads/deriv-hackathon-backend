@@ -34,6 +34,10 @@ class Config:
     populate_by_name = True
 
 
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
 @app.post("/v1/analyze")
 async def analyze_tx(
     data: TransactionPayload,
