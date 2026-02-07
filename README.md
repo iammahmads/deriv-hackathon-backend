@@ -1,11 +1,11 @@
-# 🛡️ Sentinel | AI-Powered Risk Orchestration Dashboard
+# 🛡️ Sentinel | AI-Powered Risk Orchestration Backend
 
-[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
-[![Cloudflare](https://img.shields.io/badge/Cloudflare_Pages-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)](https://pages.cloudflare.com/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.128.1-009688?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Supabase](https://img.shields.io/badge/Supabase-2.27.3-3ECF8E?style=for-the-badge&logo=supabase)](https://supabase.com/)
+[![Scikit-learn](https://img.shields.io/badge/scikit--learn-1.8.0-F7931E?style=for-the-badge&logo=scikit-learn)](https://scikit-learn.org/)
 
-Sentinel is the visual command center for a multi-layered real-time risk orchestration system. Engineered for high-stakes financial environments (like the Deriv ecosystem), this dashboard transforms complex forensic data into actionable business intelligence at the Edge.
+Sentinel Backend is the core intelligence engine for a multi-layered real-time risk orchestration system. It processes incoming transactions through a hybrid pipeline of behavioral, statistical, and structural analysis, providing forensic insights at the scale of high-stakes financial environments.
 
 ---
 
@@ -20,25 +20,26 @@ Sentinel is the visual command center for a multi-layered real-time risk orchest
 
 ## 🚀 Key Features
 
--   **📡 Real-Time Monitoring**
-    Live-streaming feed of incoming transactions with instantaneous risk scoring and severity mapping.
--   **🧠 Forensic AI Insights**
-    Large Language Model (LLM) generated "Verdicts" that provide human-readable explanations for every flagged transaction.
--   **🛡️ Triple-Engine Analysis**
-    -   **Behavioral Engine:** Advanced velocity and smurfing detection.
-    -   **Statistical Engine:** ML-driven (Random Forest) fraud probability scoring.
-    -   **Structural Engine:** Graph-based analysis for money laundering and circular path detection.
--   **⚡ Edge Performance**
-    Built on Next.js 16 and optimized for Cloudflare's Edge Runtime to ensure minimal latency for global risk monitoring.
+- **📡 Triple-Engine Analysis**
+    - **Behavioral Engine:** Velocity and "Smurfing" detection to identify rapid-fire transaction patterns.
+    - **Statistical Engine:** ML-driven scoring (Random Forest/XGBoost) to calculate fraud probabilities based on high-dimensional features.
+    - **Structural Engine:** Graph-based analysis (NetworkX) to detect money laundering cycles and circular paths.
+- **🧠 Forensic AI Verdicts**
+    Integrates with OpenAI to synthesize complex technical flags into human-readable forensic explanations.
+- **🛡️ Real-Time Persistence**
+    Seamlessly integrates with Supabase for real-time transaction logging and high-confidence alerting.
+- **⚡ High Performance**
+    Built with FastAPI for asynchronous transaction processing and sub-second risk orchestration.
 
 ---
 
 ## 🛠️ Tech Stack
 
--   **Framework:** [Next.js 16](https://nextjs.org/) (App Router)
--   **Styling:** [Tailwind CSS 4.0](https://tailwindcss.com/) + UI Components
--   **State & Data:** Supabase (Real-time DB) / REST API
--   **Deployment:** [Cloudflare Pages](https://pages.cloudflare.com/) via `@opennextjs/cloudflare`
+- **Framework:** [FastAPI](https://fastapi.tiangolo.com/)
+- **Machine Learning:** [Scikit-learn](https://scikit-learn.org/), [Pandas](https://pandas.pydata.org/), [XGBoost](https://xgboost.readthedocs.io/)
+- **Graph Analysis:** [NetworkX](https://networkx.org/)
+- **Forensic AI:** [OpenAI API](https://openai.com/blog/openai-api)
+- **Database:** [Supabase](https://supabase.com/) (PostgreSQL + Real-time)
 
 ---
 
@@ -46,58 +47,90 @@ Sentinel is the visual command center for a multi-layered real-time risk orchest
 
 ### Prerequisites
 
-You'll need to define the following environment variables in a `.env.local` file:
+- Python 3.10+
+- A Supabase project
+- An OpenAI API Key
+
+### Environment Setup
+
+Create a `.env` file in the root directory:
 
 ```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-NEXT_PUBLIC_API_URL=https://your-backend-url.onrender.com
+SUPABASE_URL=your_supabase_url
+SUPABASE_KEY=your_supabase_anon_or_service_role_key
+BASE_URL=http://localhost:8000
+FRONTEND_URL=http://localhost:3000
+OPENAI_API_KEY=your_openai_api_key
 ```
 
 ### Installation
 
-1.  **Clone the Repo**
-    ```bash
-    git clone https://github.com/iammahmads/deriv-hackathon-frontend.git
-    cd deriv-hackathon-frontend
-    ```
+1. **Clone the Repo**
+   ```bash
+   git clone https://github.com/iammahmads/deriv-hackathon-backend.git
+   cd deriv-hackathon-backend
+   ```
 
-2.  **Install Dependencies**
-    ```bash
-    npm install
-    ```
+2. **Create Virtual Environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-3.  **Run Locally**
-    ```bash
-    npm run dev
-    ```
+3. **Install Dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Run Application**
+   ```bash
+   uvicorn app.main:app --reload
+   ```
+
+The API will be available at `http://localhost:8000`. You can access the interactive documentation at:
+- **Swagger UI:** `http://localhost:8000/docs`
+- **ReDoc:** `http://localhost:8000/redoc`
+
+### Testing with Simulator
+
+You can use the built-in simulator to send mock transactions:
+```bash
+python -m app.services.simulator
+```
 
 ---
 
-## 🌐 Deployment
+## 📡 API Usage
 
-This project is tailored for **Cloudflare Pages**.
+### `POST /v1/analyze`
 
-1.  **Build Workflow**
-    ```bash
-    npx @cloudflare/next-on-pages
-    ```
+Analyzes a transaction for fraud and money laundering.
 
-2.  **Deploy Command**
-    ```bash
-    npx wrangler pages deploy .vercel/output
-    ```
+**Headers:**
+- `X-OpenAI-Key`: Your OpenAI API Key (required for forensic AI).
+
+**Payload:**
+```json
+{
+  "tx_id": "TX-1234",
+  "sender_id": "user_1",
+  "receiver_id": "user_2",
+  "amount": 500.0,
+  "type": "TRANSFER",
+  "features": [500.0, 1000.0, 500.0, 0.0, 500.0, 0.0, 0.0]
+}
+```
 
 ---
 
 ## 🛡️ Sentinel Logic: The Hybrid Decision Engine
 
-Every transaction surfaced in this dashboard is the result of a rigorous multi-stage verification pipeline:
+Every transaction is passed through a four-stage verification pipeline:
 
-1.  **Velocity Check:** Identifies rapid-fire transaction patterns.
-2.  **ML Scoring:** 7-dimensional feature analysis via Random Forest.
-3.  **Graph Monitoring:** Detects structural shifts and laundering cycles.
-4.  **Forensic AI:** Synthesizes technical data into a concise textual verdict.
+1. **Velocity Check:** Monitors the rate of transactions for a specific sender to flag potential automation or smurfing.
+2. **ML Scoring:** Analyzes a 7-dimensional feature vector using a pre-trained model to produce a statistical risk score.
+3. **Graph Monitoring:** Maps transactions into a graph to identify structural anomalies like circular paths (laundering).
+4. **Forensic AI:** If thresholds are met, the aggregated data is sent to an LLM to generate a plain-English "Forensic Verdict" for compliance officers.
 
 ---
 
